@@ -1,0 +1,113 @@
+<html lang="en" class="js cssanimations">
+<head>
+
+    {include file="common/header"/}
+</head>
+
+<body data-type="" style="">
+<div class="am-g tpl-g">
+    <!-- 头部 -->
+    {include file="common/nav"/}
+    <!-- 侧边导航栏 -->
+    {include file="common/menu"/}
+    {include file="common/menu_style" /}
+    <!-- 内容区域 start -->
+    <div class="tpl-content-wrapper">
+        <div class="row-content am-cf">
+            <div class="row">
+                <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                    <div class="widget am-cf">
+                        <div class="widget-head am-cf">
+                            <div class="widget-title am-cf">用户列表</div>
+                        </div>
+                        <div class="widget-body am-fr">
+                            <!-- 工具栏 -->
+                            <div class="page_toolbar am-margin-bottom-xs am-cf">
+                                <form action="" method="get" class="form-horizontal" role="form" id="formSearch">
+                                    <div class="am-u-sm-12 ">
+									<span class="zx-form-span">
+										搜索：
+									</span>
+                                        <div class="am-form-group tpl-form-border-form zx-form-input zx-display zx-group">
+                                            <input type="text" class="am-form-field" name="title"
+                                                   placeholder="输入用户名"
+                                                   value="{$post.title}" style="border-radius: 4px;width: 240px;">
+                                            <input type="hidden" name="page" value="1">
+
+                                        </div>
+                                        <span class="zx-form-span">
+										 <!-- 查询按钮样式 -->
+                                        <div class="zx-but-check">
+                                            <button type="submit">
+                                                <i class="fa fa-search"></i> 查询
+                                            </button>
+                                        </div>
+									</span>
+
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="am-scrollable-horizontal am-u-sm-12">
+                                <table width="100%"
+                                       class="am-table am-table-compact am-table-striped tpl-table-black am-text-nowrap ">
+                                    <thead class="navbar-inner">
+                                    <tr>
+                                        <th>用户ID</th>
+                                        <th>微信用户</th>
+                                        <th>微信头像</th>
+                                        <th>创建时间</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {volist name="$list" id="vo"}
+                                    <tr>
+                                        <td>{$vo.id}</td>
+                                        <td>{$vo.nickname}</td>
+                                        <td><img src="{$vo.header_img}" width="50" alt=""></td>
+                                        <td>{$vo.create_time}</td>
+                                    </tr>
+                                    {/volist}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="am-u-lg-12 am-cf" style="text-align: right;">
+                                <div class="am-fl pagination-total am-margin-left">
+                                    <div class="am-vertical-align-middle">{$list->render()|raw}</div>
+                                </div>
+                                <div class="am-fr pagination-total am-margin-right">
+                                    <div class="am-vertical-align-middle">总记录：{$list->total()}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script>
+    //公用修改状态
+    function onStatusDIe(id,status) {
+        var message ="是否确认拉黑么?";
+        if(status ==1){
+            message = "是否确认回复么??";
+        }
+
+        layer.confirm(message, {icon: 3, title: '提示'}, function (index) {
+            $.post("{:url('setStatus1')}", {id: id,status:status}, function (res) {
+                layer.close(index);
+                if (res.status == 0) {
+                    layer.msg(res.message, {icon: 1, time: 1000});
+                    setTimeout(function () {
+                        location.reload();
+                    }, 1000);
+                } else {
+                    layer.msg(res.message, {icon: 2, time: 1000});
+                }
+            }, "JSON");
+        })
+    }
+</script>
+</body>
+</html>

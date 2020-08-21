@@ -1,0 +1,238 @@
+<!-- 模态框（Modal） -->
+
+<div class="modal fade" id="myModals" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog" style="width:980px" >
+
+        <div class="modal-content" >
+
+            <div class="modal-header">
+
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                <h4 class="modal-title" id="myModalLabel">选择图片</h4>
+
+            </div>
+
+            <div class="modal-body material-content clearfix">
+
+                <div class="material-head">
+
+                    <form enctype="multipart/form-data" id="form2">
+
+                        <div class="btn-uploader form-inline" style="z-index: 10" ng-show="index<2">
+
+                            <button type="button" onclick="delAllImages()" class="btn btn-danger" >删除</button>
+
+                            <button type="button" onclick="d.click()" class="btn btn-primary ng-binding">上传图片
+
+                            </button>
+
+                            <input type="file" id="d" onchange="sc_cp(this);" name="file[]" multiple style="display: none">
+
+                        </div>
+                    </form>
+                </div>
+
+                <div id="image" class="material-body" ng-show="index!=2">
+
+                    <ul class="am-avg-sm-5 am-thumbnails sadvsopweb-list">
+
+                        {volist name="images" id="vo"}
+
+                        <li onclick="sadvsopwebClick(this)" data-src="{$vo.path.value}" data-key="{$vo.path.key}"  class="am-thumbnail" data-id="{$vo.id}" onmousemove="sadvsopwebMouseover(this)" onmouseout="sadvsopwebMouseout(this)">
+
+                            <img  src="{$vo.path.value}" alt="">
+
+                            <div class="mask"><span class="wi wi-right"></span></div>
+
+                            <div class="del"><span class="wi wi-delete2"></span></div>
+
+                        </li>
+
+                        {/volist}
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-primary"  onclick="onChoiceImages()">确认</button>
+
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+
+            </div>
+
+        </div><!-- /.modal-content -->
+
+    </div><!-- /.modal -->
+
+</div>
+
+
+
+<!-- 模态提示框（Modal） -->
+
+<div class="modal fade" id="myModalAat1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <button type="button" class="close" data-dismiss="modal"
+
+                        aria-hidden="true">×
+
+                </button>
+
+                <h4 class="modal-title" >
+
+                    提示
+
+                </h4>
+
+            </div>
+
+            <div class="modal-body" id="myModalAatTips1">
+
+                按下 ESC 按钮退出。
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button type="button" onclick="onTipsShow()"  data-dismiss="modal" class="btn btn-primary">
+
+                    确认
+
+                </button>
+
+            </div>
+
+        </div><!-- /.modal-content -->
+
+    </div><!-- /.modal-dialog -->
+
+</div><!-- /.modal -->
+
+<script>
+    var img_arr_coayes = [[],[],[]];
+    var image_objs = {};
+    function showImageDialoges() {
+        $('#myModals').modal('show');
+    }
+    function init_uploads(index){
+        image_objs = {
+            id:$("."+index).attr("data-id"),
+            logo_us:$("."+index).attr("data-logo_us"),
+            index:$("."+index).attr("data-index")
+        };
+    }
+
+    function onTips(message) {
+        $("#myModalAatTips1").text(message);
+        $("#myModalAat1").modal({});
+    }
+
+    function sc_cp(obj) {
+
+        var data = new FormData($('#form2')[0]);
+
+        $(obj).val('');
+
+        $.ajax({
+
+            url: "{:url('upload/upImage')}",
+
+            type: 'POST',
+
+            data: data,
+
+            dataType: 'JSON',
+
+            processData: false,
+
+            contentType: false,
+
+            success: function (event) {
+                if (event.status == 1) {
+                    var html = '';
+                    $.each(event.data, function (index, item) {
+                        html += '<li onclick="sadvsopwebClick(this)"  data-src="'+item.path.value+'"  data-key="'+item.path.key+'" class="am-radius"data-id="'+item.id+'" onmousemove="sadvsopwebMouseover(this)" onmouseout="sadvsopwebMouseout(this)">';
+                        html += '<img alt="140*140" src="' + item.path.value + '" />';
+                        html += '<div class="mask"><span class="wi wi-right"></span></div>';
+                        html += '<div class="del"><span class="wi wi-delete2"></span></div>';
+                        html += '</li>';
+                    });
+                    $(".sadvsopweb-list").prepend(html);
+                }else{
+                    onTips(event.message);
+
+                }
+
+            },
+
+            complete: function (event) {
+
+
+
+            }
+
+        });
+
+        return false;
+
+    }
+
+
+
+    function onChoiceImages() {
+        // img_arr_coayes[image_objs.index] = img_arr_coayes[image_objs.index].concat(image_all);//c=[1,2,3,4,5,6];
+
+        if(img_arr_coayes[image_objs.index].length == 0){
+            $('.'+image_objs.logo_us).empty();
+        }
+        if(image_all.length != 0){
+            var html = '';
+            $.each(image_all,function (index,item) {
+                html+='<div class="input-group" style="margin-top:.5em;">';
+                html+='<img src="'+item.src+'" class="img-responsive img-thumbnail" width="150"> ';
+                html+='<em class="close" style="position:absolute; top: 0px; right: -14px;" title="删除这张图片" onclick="deleteImages(\''+image_objs.id+'\',\''+image_objs.logo_us+'\','+image_objs.index+',this)" data-index="'+index+'">×</em>';
+                html+='</div>';
+                img_arr_coayes[image_objs.index].push(item.value);
+            });
+            $('#'+image_objs.id).val(img_arr_coayes[image_objs.index]);
+            $('.'+image_objs.logo_us).append(html);
+        }
+        image_all = [];
+        image_del = [];
+        $('.mask').removeClass('dimbackddsa');
+        $('#myModals').modal('hide');
+    }
+
+    function deleteImages(id,logo_us,key,obj) {
+        var data_index = $(obj).attr("data-index");
+        img_arr_coayes[key].splice(data_index,1);
+        var html = '';
+        if(img_arr_coayes[key].length != 0){
+            $('.'+image_objs.logo_us).children(".input-group").eq(data_index).remove();
+            $.each(img_arr_coayes[key],function (index,item) {
+                $('.'+image_objs.logo_us).children(".input-group").eq(index).children(".close").attr("data-index",index);
+            });
+        }else{
+            $('.'+logo_us).empty();
+            html+= '<div class="input-group" style="margin-top:.5em;">';
+            html+= '<img src="/uploads/nopic.jpg" class="img-responsive img-thumbnail" width="150">';
+            html+= '</div>';
+            $('.' + logo_us).append(html);
+        }
+        $("#"+id).val(img_arr_coayes[key]);
+
+    }
+
+</script>

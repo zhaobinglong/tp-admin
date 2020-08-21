@@ -1,0 +1,154 @@
+<html lang="en" class="js cssanimations">
+<head>
+
+    {include file="common/header"/}
+</head>
+
+<body data-type="" style="">
+<div class="am-g tpl-g">
+    <!-- 头部 -->
+    {include file="common/nav"/}
+    <!-- 侧边导航栏 -->
+    {include file="common/menu"/}
+    {include file="common/menu_style" /}
+    <!-- 内容区域 start -->
+    <div class="tpl-content-wrapper">
+        <div class="row-content am-cf">
+            <div class="row">
+                <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                    <div class="widget am-cf">
+                        <div class="widget-head am-cf">
+                            <div class="widget-title am-cf">发型列表</div>
+                        </div>
+                        <div class="widget-body am-fr">
+                            <!-- 工具栏 -->
+                            <div class="page_toolbar  ">
+                                <div class="am-tabs am-tabs-d2">
+                                    <ul class="am-tabs-nav am-cf">
+                                        <li  {$where['type'] == 0?'class="am-active"':''} ><a href="javascript:;" onclick="onSubmitSearch('type',0)">全部
+                                            ({$countData['count1']}) </a></li>
+                                        <li {$where['type'] == 1?'class="am-active"':''}><a href="javascript:;" onclick="onSubmitSearch('type',1)">烫发
+                                            ( {$countData['count2']} ) </a></li>
+                                        <li {$where['type'] == 2?'class="am-active"':''}><a href="javascript:;" onclick="onSubmitSearch('type',2)">染发
+                                            ({$countData['count3']} ) </a></li>
+                                    </ul>
+                                </div>
+                                <form action="" method="get" class="form-horizontal" role="form" id="formSearch">
+                                    <div class="am-u-sm-12 ">
+									<span class="zx-form-span">
+										搜索：
+									</span>
+                                        <div class="am-form-group tpl-form-border-form zx-form-input zx-display zx-group">
+                                            <input type="text" class="am-form-field" name="title" placeholder="输入名称查询" autocomplete="off" value="{$where['title']}" style="border-radius: 4px;width: 240px;">
+                                            <input type="hidden" name="page" value="1">
+                                            <input type="hidden" name="type" value="0" id="type">
+                                        </div>
+                                        <span class="zx-form-span">
+										状态：
+									    </span>
+                                        <div class="am-form-group tpl-form-border-form zx-form-input zx-display zx-group">
+                                            <div class="am-form-group tpl-form-border-form zx-form-input zx-display zx-group">
+                                                <select name="status" data-am-selected="{ btnSize: 'sm',placeholder:'请选择状态', maxHeight: 400}" style="display: none;">
+                                                    <option value="0"  {$where['status'] == 0?'selected=""':''}>请下拉选择</option>
+                                                    <option value="2" {$where['status'] == 2?'selected=""':''}>已上架</option>
+                                                    <option value="1" {$where['status'] == 1?'selected=""':''}>已下架</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <span class="zx-form-span">
+										 <!-- 查询按钮样式 -->
+                                        <div class="zx-but-check">
+                                            <button type="submit">
+                                                <i class="fa fa-search"></i> 查询
+                                            </button>
+                                        </div>
+									</span>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="am-u-sm-12 am-fl am-margin-bottom-xs">
+                                <div class="am-btn-group am-btn-group-xs ">
+                                    <a class="zx-addBut" href="{:url('add')}">
+                                        <i class="fa fa-plus"></i> 新增发型
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="am-scrollable-horizontal am-u-sm-12">
+                                <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black am-text-nowrap ">
+                                    <thead class="navbar-inner">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>类型</th>
+                                        <th>头图</th>
+                                        <th>名称</th>
+                                        <th>颜色</th>
+                                        <th>油性</th>
+                                        <th>硬度</th>
+                                        <th>光滑度</th>
+                                        <th>形状</th>
+                                        <th>发量</th>
+                                        <th>体量</th>
+                                        <th>长度</th>
+                                        <th>状态</th>
+                                        <th>创建时间</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {volist name="$list" id="vo"}
+                                    <tr>
+                                        <td>{$vo.id}</td>
+                                        <td>{$vo.type.value}</td>
+                                        <td>
+                                            <img src="{$vo.header.value}" alt="" width="100">
+                                        </td>
+                                        <td>{$vo.name}</td>
+                                        <td>{$vo.color_id.value}</td>
+                                        <td>{$vo.oiliness.value}</td>
+                                        <td>{$vo.hardness.value}</td>
+                                        <td>{$vo.smoothness.value}</td>
+                                        <td>{$vo.shape.value}</td>
+                                        <td>{$vo.hair_number.value}</td>
+                                        <td>{$vo.body_mass.value}</td>
+                                        <td>{$vo.length.value}</td>
+                                        <td>
+                                            {if condition="$vo.status ==1"}
+                                            <button type="button" class="btn btn-success btn-xs" onclick="onStatusAttr('{$vo.id}',0)">已上架</button>
+                                            {elseif condition="$vo.status ==0" /}
+                                            <button type="button" class="btn btn-danger btn-xs" onclick="onStatusAttr('{$vo.id}',1)">已下架</button>
+                                            {elseif condition="$vo.status ==-1" /}
+                                            <button type="button" class="btn btn-danger btn-xs" onclick="onStatusAttr('{$vo.id}',1)">已删除</button>
+                                            {/if}
+                                        </td>
+                                        <td>{$vo.create_time}</td>
+                                        <td>
+                                            <a href="{:url('edit',['id'=> $vo.id])}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> 编辑</a>
+                                            <a class="btn btn-danger btn-xs" onclick="deletes('{$vo.id}')"><i class="fa fa-trash-o"></i> 删除</a>
+                                        </td>
+                                    </tr>
+                                    {/volist}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="am-u-lg-12 am-cf" style="text-align: right;">
+                                <div class="am-fl pagination-total am-margin-left">
+                                    <div class="am-vertical-align-middle">{$list->render()|raw}</div>
+                                </div>
+                                <div class="am-fr pagination-total am-margin-right">
+                                    <div class="am-vertical-align-middle">总记录：{$list->total()}</div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script>
+
+</script>
+</body>
+</html>

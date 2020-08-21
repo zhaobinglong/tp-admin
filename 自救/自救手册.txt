@@ -1,0 +1,7 @@
+
+
+========================php »±…Ÿ÷§ È£®wechat£©
+
+curl.cainfo = "D:/phpStudy/PHPTutorial/php/php-7.1.13-nts/ssl/cacert.pem"
+
+openssl.cafile= "D:/phpStudy/PHPTutorial/php/php-7.1.13-nts/ssl/cacert.pem""

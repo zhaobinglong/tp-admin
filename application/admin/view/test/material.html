@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="__ADMIN__/poster/css/jquery.Jcrop.min.css">
+    <!-- 屏蔽的是因为直接写到页面上了 -->
+    <!-- <link rel="stylesheet" href="__ADMIN__/poster/css/extend.css"> -->
+    <script src="/static/admin/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="/static/admin/css/layer.css" id="layuicss-layer">
+    <!-- 脚步js开始 -->
+    <script src="/static/admin/js/layer.js "></script>
+    <script src="__ADMIN__/poster/js/jquery.Jcrop.min.js"></script>
+    <!-- <script src="__ADMIN__/poster/js/index.js"></script> -->
+    <style>
+        html,body {
+            padding: 0;
+            margin: 0;
+        }
+        .head{
+            width: 400px;
+            height: 560px;
+            margin: 20px;
+            position: relative;
+            overflow: hidden;
+            background: aquamarine;
+            float: left;
+        }
+
+        #backgroundImg{
+            width: 100%;
+            display: none;
+        }
+        .pieceImgModel{
+            position: absolute;
+            width: 400px;
+            height: 560px;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+        }
+        .pieceImgBox1{
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 100px;
+            height: 100px;
+            background: #FFFFFF;
+            cursor: move;
+        }
+        .ne{
+            cursor: ne-resize;
+            position: absolute;
+            z-index: 379;
+            opacity: 0.5;
+            margin-right: -4px;
+            margin-top: -4px;
+            right: 0;
+            top: 0;
+            background-color: #333;
+            border: 1px #EEE solid;
+            font-size: 1px;
+            height: 7px;
+            width: 7px;
+            display: none;
+        }
+        .se{
+            cursor: se-resize;
+            position: absolute;
+            z-index: 379;
+            opacity: 0.5;
+            margin-right: -4px;
+            margin-bottom: -4px;
+            right: 0;
+            bottom: 0;
+            background-color: #333;
+            border: 1px #EEE solid;
+            font-size: 1px;
+            height: 7px;
+            width: 7px;
+            display: none;
+        }
+        .upImg1,.upImg2,.upImg3,.upImg{
+            position: absolute;
+            cursor: pointer;
+            display: inline-block;
+            width: 70px;
+            height: 20px;
+            line-height: 20px;
+            text-align: center;
+            font-size: 12px;
+            left: 0;
+            bottom: 0;
+            border-radius: 4px;
+            background: rgba(0,0,0,0.5);
+            color: white;
+        }
+        .upImg{
+            position: absolute;
+            left: 10px;
+            bottom: 10px;
+            z-index: 9;
+        }
+        .imgBtn{
+            width: 80px;
+            height: 30px;
+            color: #fff;
+            background-color: #2d8cf0;
+            border-color: #2d8cf0;
+            border-radius: 4px;
+            font-weight: 400;
+            text-align: center;
+            vertical-align: middle;
+            -ms-touch-action: manipulation;
+            touch-action: manipulation;
+            cursor: pointer;
+            background-image: none;
+            border: 1px solid transparent;
+            white-space: nowrap;
+            line-height: 1.5;
+            margin-top: 20px;
+            float: left;
+        }
+
+    </style>
+    <style>
+        dd{
+            background-repeat: no-repeat;
+        }
+    </style>
+    <script>
+        //图片总宽度
+        var logo_title = 100;
+        //背景总宽度
+        var onLoadHeightData = [0,0,0,0];
+        $(function () {
+            var _move=false;
+            var _x,_y;
+            var _semove=false;
+            $(".pieceImgBox1").mousedown(function(e){
+                _move=true;
+                _x=e.pageX-parseInt($(".pieceImgBox1").css("left"));
+                _y=e.pageY-parseInt($(".pieceImgBox1").css("top"));
+            });
+            $(document).mousemove(function(e){
+                if(_move){
+                    var x=e.pageX-_x;//移动时根据鼠标位置计算控件左上角的绝对位置
+                    var y=e.pageY-_y;
+                    $(".pieceImgBox1").css({top:y,left:x});//控件新位置
+                }
+                if(_semove){
+                    var left=parseInt($(".pieceImgBox1").css("left"));
+                    var url = getFileUrlImg("pieceFileImg1");
+                    //手动创建一个Image对象
+                    var img = new Image();
+                    //创建Image的对象的url
+                    img.src = url ;
+                    img.onload = function () {
+                        $(".pieceImgBox1").css({width:e.pageX-20-left,height:(e.pageX-20-left)*onLoadHeightData[1]});
+                    };
+                }
+            }).mouseup(function(){
+                _move=false;
+                _semove=false;
+            });
+
+            $(".pieceImgBox1 .se").mousedown(function(e){
+                e.stopPropagation();
+                _semove=true;
+            });
+            //合成图片
+            $(document).on('click','.imgBtn',function () {
+                var img1Width;
+                var img1Height;
+                var bgimgWidth;
+                var bgimgHeight;
+                var w1,h1,l1,t1,wBg,hBg;
+                var img1=$('#pieceTargetImg1').attr('src');
+                var bgimg=$('#backgroundImg').attr('src');
+                if(bgimg!=undefined){
+                    bgimgWidth = document.getElementById('backgroundImg').naturalWidth;
+                    bgimgHeight = document.getElementById('backgroundImg').naturalHeight;
+                }
+                if(img1!=undefined){
+                    img1Width = document.getElementById('pieceTargetImg1').naturalWidth;
+                    img1Height = document.getElementById('pieceTargetImg1').naturalHeight;
+                    w1=$('.pieceImgBox1').width();
+                    h1=$('.pieceImgBox1').height();
+                    l1=$('.pieceImgBox1').css('left');
+                    t1=$('.pieceImgBox1').css('top');
+                    l1=l1.split('px');
+                    l1=l1[0];
+                    t1=t1.split('px');
+                    t1=t1[0];
+                }
+                var img1 = new Image();
+                img1.src = $('#pieceTargetImg1').attr('src');
+                var bgimg= new Image();
+                bgimg.src = $('#backgroundImg').attr('src');
+                var canvas = document.createElement("canvas");
+                var ctx = canvas.getContext('2d');
+                var base64;
+                if(img1!=undefined){
+                    var w=$('.head').width();
+                    var h=$('.head').height();
+                    canvas.width = w;
+                    canvas.height = h;
+                    ctx.drawImage(bgimg, 0, 0, bgimgWidth, bgimgHeight,0,0,w,h);
+                    ctx.drawImage(img1, 0, 0, img1Width, img1Height,l1,t1,w1,h1);
+                    base64 = canvas.toDataURL('image/jpeg', 1);
+                    $("#jg").attr("src",base64);
+                }
+            });
+
+            //上传图片
+            $(document).on('click','.pieceImgModel .upImg1',function () {
+                openBrowseImg1()
+            });
+            $(document).on('change','.pieceImgModel #pieceFileImg1',function(){
+                changeFileImg1()
+            });
+            //上传背景图
+            $(document).on('click','.upImg',function () {
+                openBrowseImg()
+            });
+            $(document).on('change','#pieceFileImg',function(){
+                changeFileImg()
+            });
+
+            function getFileUrlImg(sourceId) {
+                var url;
+                if (navigator.userAgent.indexOf("MSIE")>=1) { // IE
+                    url = document.getElementById(sourceId).value;
+                } else if(navigator.userAgent.indexOf("Firefox")>0) { // Firefox
+                    url = window.URL.createObjectURL(document.getElementById(sourceId).files.item(0));
+                } else if(navigator.userAgent.indexOf("Chrome")>0) { // Chrome
+                    url = window.URL.createObjectURL(document.getElementById(sourceId).files.item(0));
+                } else if(navigator.userAgent.indexOf("Safari")>0) { // Chrome
+                    url = window.URL.createObjectURL(document.getElementById(sourceId).files.item(0));
+                }
+                return url;
+            }
+            function openBrowseImg1(){
+                var ie=navigator.appName=="Microsoft Internet Explorer" ? true : false;
+                if(ie){
+                    document.getElementById("pieceFileImg1").click();
+                }else{
+                    var a=document.createEvent("MouseEvents");
+                    a.initEvent("click", true, true);
+                    document.getElementById("pieceFileImg1").dispatchEvent(a);
+                }
+            }
+            function openBrowseImg2(){
+                var ie=navigator.appName=="Microsoft Internet Explorer" ? true : false;
+                if(ie){
+                    document.getElementById("pieceFileImg2").click();
+                }else{
+                    var a=document.createEvent("MouseEvents");
+                    a.initEvent("click", true, true);
+                    document.getElementById("pieceFileImg2").dispatchEvent(a);
+                }
+            }
+            function openBrowseImg3(){
+                var ie=navigator.appName=="Microsoft Internet Explorer" ? true : false;
+                if(ie){
+                    document.getElementById("pieceFileImg3").click();
+                }else{
+                    var a=document.createEvent("MouseEvents");
+                    a.initEvent("click", true, true);
+                    document.getElementById("pieceFileImg3").dispatchEvent(a);
+                }
+            }
+            function openBrowseImg(){
+                var ie=navigator.appName=="Microsoft Internet Explorer" ? true : false;
+                if(ie){
+                    document.getElementById("pieceFileImg").click();
+                }else{
+                    var a=document.createEvent("MouseEvents");
+                    a.initEvent("click", true, true);
+                    document.getElementById("pieceFileImg").dispatchEvent(a);
+                }
+            }
+            function changeFileImg() {
+                var url = getFileUrlImg("pieceFileImg");
+                $('#backgroundImg').attr('src',url);
+                $('.head').css({
+                    'background':'url('+url+') no-repeat ',
+                    'background-color':'aquamarine',
+                    'background-size':'100%'
+                });
+                return false;
+            }
+            function changeFileImg1() {
+                var url = getFileUrlImg("pieceFileImg1");
+                //手动创建一个Image对象
+                var img = new Image();
+                //创建Image的对象的url
+                img.src = url ;
+                img.onload = function () {
+                    var onLoadHeight = (Math.round(logo_title/this.width * 100)/100)*this.height;
+                    onLoadHeightData[1] = (Math.round(this.height/this.width * 100)/100);
+                    $(".pieceImgBox1").css('height',onLoadHeight+'px');
+                };
+
+                $('#pieceTargetImg1').attr('src',url);
+                $('.pieceImgBox1').css({
+                    'background':'url('+url+')  no-repeat',
+                    'background-size':'100%'
+                });
+                $('.pieceImgBox1 .se').css({'display':'block'});
+                return false;
+            }
+            function changeFileImg2() {
+                var url = getFileUrlImg("pieceFileImg2");
+                var img = new Image();
+                //创建Image的对象的url
+                img.src = url ;
+                img.onload = function () {
+                    var onLoadHeight = (Math.round(logo_title/this.width * 100)/100)*this.height;
+                    onLoadHeightData[2] = (Math.round(this.height/this.width * 100)/100);
+                    $(".pieceImgBox2").css('height',onLoadHeight+'px');
+                };
+                $('#pieceTargetImg2').attr('src',url);
+                $('.pieceImgBox2').css({
+                    'background':'url('+url+')  no-repeat',
+                    'background-size':'100%'
+                });
+                $('.pieceImgBox2 .se').css({'display':'block'});
+                return false;
+            }
+            function changeFileImg3() {
+                var url = getFileUrlImg("pieceFileImg3");
+                var img = new Image();
+                //创建Image的对象的url
+                img.src = url ;
+                img.onload = function () {
+                    var onLoadHeight = (Math.round(logo_title/this.width * 100)/100)*this.height;
+                    onLoadHeightData[3] = (Math.round(this.height/this.width * 100)/100);
+                    $(".pieceImgBox3").css('height',onLoadHeight+'px');
+                };
+
+                $('#pieceTargetImg3').attr('src',url);
+                $('.pieceImgBox3').css({
+                    'background':'url('+url+')  no-repeat',
+                    'background-size':'100%'
+                });
+                $('.pieceImgBox3 .se').css({'display':'block'});
+                return false;
+            }
+
+        });
+
+    </script>
+    <title>图片合成</title>
+</head>
+<body>
+<div class="addImgModel">
+    <div class="head">
+        <span class="upImg">上传背景图</span>
+        <input type="file" id="pieceFileImg" style="display: none;"/>
+        <img id="backgroundImg"/>
+        <div class="pieceImgModel" id="imgsortable">
+            <div class="pieceImgBox1">
+                <img id="pieceTargetImg1" style="display: none"/>
+                <div class="se"></div>
+                <span class="upImg1">生成二维码</span>
+                <input type="file" id="pieceFileImg1" style="display: none;"/>
+            </div>
+        </div>
+    </div>
+    <img id="jg" src="">
+    <div class="button_box">
+        <button type="button" class="imgBtn" >合成图片</button>
+    </div>
+</div>
+
+
+</body>
+</html>

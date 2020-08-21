@@ -1,0 +1,742 @@
+<html lang="en" class="js cssanimations">
+<head>
+    {include file="common/header"/}
+</head>
+<body data-type="" style="">
+<div class="am-g tpl-g">
+    <!-- 头部 -->
+    <!-- 头部 -->
+    {include file="common/nav"/}
+    <!-- 侧边导航栏 -->
+    {include file="common/menu"/}
+    {include file="common/menu_style" /}
+    <!-- 侧边导航栏 -->
+    <!--右侧详细内容区域 from 自定义-->
+    <div class="tpl-content-wrapper ">
+        <!--本页自定义样式-->
+        <!--<link rel="stylesheet" href="http://www.propro.com/addons/group_buy/style/css/goods.css">-->
+        <!--<link rel="stylesheet" href="http://www.propro.com/addons/group_buy/style/css/umeditor.css">-->
+        <!--右侧详细内容区域，灰框之内,from 妹子-->
+        <div class="row-content am-cf">
+            <!--2列式简单布局,from bootstap-->
+            <div class="row">
+                <!--12列布局,from 妹子-->
+                <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                    <!--widget自定义右侧盒子 from 自定义 am-cf 清除全部浮动  from 妹子-->
+                    <div class="widget am-cf">
+                        <form id="form" action="{:url('save')}" class="am-form tpl-form-line-form" method="post">
+                            <!--本页隐藏传值-->
+                            <input type="hidden" name="id" id="id" value="{$info.id}">
+                            <!--右侧正文 from 自定义 -->
+                            <div class="widget-body">
+                                <!--右侧正文 规定所有边距为0 from bootstap -->
+                                <fieldset>
+                                    <!--小标题 from 自定义-->
+                                    <div class="widget-head am-cf">
+                                        <div class="widget-title am-fl">新增发型</div>
+                                    </div>
+                                    <div class="am-form-group am-form-success">
+                                        <label class="am-u-sm-3 am-u-lg-2 am-form-label">类型 </label>
+                                        <div class="am-u-sm-9 am-u-end">
+                                            <label class="am-radio-inline">
+                                                <input type="radio"   name="type" value="1" onchange="onChangeTar()"  {$info.type.key == 1?'checked=""':''}   class="am-ucheck-radio am-field-valid"><span class="am-ucheck-icons"><i class="am-icon-unchecked"></i><i class="am-icon-checked"></i></span>
+                                                <span class="am-ucheck-icons">
+                                                <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                            </span>
+                                                <span class="am-ucheck-icons">
+                                                <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                            </span>
+                                                烫发
+                                            </label>
+                                            <label class="am-radio-inline">
+                                                <input type="radio"  name="type" value="2"  onchange="onChangeTar()" {$info.type.key == 2?'checked=""':''}  data-am-ucheck="" class="am-ucheck-radio am-field-valid"><span class="am-ucheck-icons"><i class="am-icon-unchecked"></i><i class="am-icon-checked"></i></span>
+                                                <span class="am-ucheck-icons">
+                                                <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                            </span>
+                                                <span class="am-ucheck-icons">
+                                                <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                            </span>
+                                                染发
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <!-- form-require表单项必填 from 自定义-->
+                                        <label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">名称</label>
+                                        <div class="am-u-sm-9 am-u-end">
+                                            <input type="text" class="tpl-form-input" name="name" value="{$info.name}" autocomplete="off" placeholder="请输入发型名称">
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label class="am-u-sm-3 am-u-lg-2 am-form-label">头图</label>
+                                        <div class="am-u-sm-9 am-u-end">
+                                            <div class="input-group ">
+                                                <input type="text" name="logo" id="logo" value="{$info.header.key}" class="form-control" autocomplete="off">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button" onclick="showImageDialog('logo','logo_us_group');">选择图片</button>
+                                                </span>
+                                            </div>
+                                            <div class="input-group logo_us_group" style="margin-top:.5em;">
+                                                <img src="{$info.header.value}" class="img-responsive img-thumbnail" width="150">
+                                                <em class="close" style="position:absolute; top: 0px; right: -14px;"
+                                                    title="删除这张图片" onclick="deleteImage('logo','logo_us_group')">×</em>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label class="am-u-sm-3 am-u-lg-2 am-form-label">轮播图</label>
+                                        <div class="am-u-sm-5 am-u-end">
+                                            <div class="input-group">
+                                                <input type="text" name="test" id="draw_images" value="{$info.images.key}" class="form-control" autocomplete="off">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button" onclick="showImageDialoges();">选择图片</button>
+                                                </span>
+                                            </div>
+                                            <div class="flex logo_us_group55" data-id="draw_images" data-logo_us="logo_us_group55" data-index="0">
+                                                {foreach name="$info.images.value" item="item" key="key"}
+                                                <div class="input-group" style="margin-top:.5em;">
+                                                    <img src="{$item.value}"
+                                                         class="img-responsive img-thumbnail" width="150">
+                                                    <em class="close" style="position:absolute; top: 0px; right: -14px;" title="删除这张图片" onclick="deleteImages('draw_images','logo_us_group55',0,this)" data-index="{$key}">×</em>
+                                                </div>
+                                                {/foreach}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="widget-head am-cf">
+                                        <div class="widget-title am-fl">基础信息</div>
+                                    </div>
+                                    <div class="am-form-group am-form-success">
+                                        <label class="am-u-sm-3 am-u-lg-2 am-form-label">颜色</label>
+                                        <div class="am-u-sm-9 am-u-end">
+                                            {volist name="$type_list[0]['list']" id="vo" key="key"}
+                                            <label class="am-radio-inline">
+                                                <input type="radio" {$key == $info.color_id.key+1?'checked=""':''} name="color_id" value="{$vo.id}"  class="am-ucheck-radio am-field-valid"><span class="am-ucheck-icons"><i class="am-icon-unchecked"></i><i class="am-icon-checked"></i></span>
+                                                <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                {$vo.name}
+                                            </label>
+                                            {/volist}
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group am-form-success">
+                                        <label class="am-u-sm-3 am-u-lg-2 am-form-label">油性</label>
+                                        <div class="am-u-sm-9 am-u-end">
+                                            {volist name="$type_list[1]['list']" id="vo" key="key"}
+                                            <label class="am-radio-inline">
+                                                <input type="radio" {$key == $info.oiliness.key+1?'checked=""':''}  name="oiliness" value="{$vo.id}"  class="am-ucheck-radio am-field-valid"><span class="am-ucheck-icons"><i class="am-icon-unchecked"></i><i class="am-icon-checked"></i></span>
+                                                <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                {$vo.name}
+                                            </label>
+                                            {/volist}
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group am-form-success">
+                                        <label class="am-u-sm-3 am-u-lg-2 am-form-label">硬度</label>
+                                        <div class="am-u-sm-9 am-u-end">
+                                            {volist name="$type_list[2]['list']" id="vo" key="key"}
+                                            <label class="am-radio-inline">
+                                                <input type="radio" {$key == $info.hardness.key+1?'checked=""':''}  name="hardness" value="{$vo.id}"   class="am-ucheck-radio am-field-valid"><span class="am-ucheck-icons"><i class="am-icon-unchecked"></i><i class="am-icon-checked"></i></span>
+                                                <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                {$vo.name}
+                                            </label>
+                                            {/volist}
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group am-form-success">
+                                        <label class="am-u-sm-3 am-u-lg-2 am-form-label">光滑度</label>
+                                        <div class="am-u-sm-9 am-u-end">
+                                            {volist name="$type_list[3]['list']" id="vo" key="key"}
+                                            <label class="am-radio-inline">
+                                                <input type="radio" {$key == $info.smoothness.key+1?'checked=""':''}  name="smoothness" value="{$vo.id}"   class="am-ucheck-radio am-field-valid"><span class="am-ucheck-icons"><i class="am-icon-unchecked"></i><i class="am-icon-checked"></i></span>
+                                                <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                {$vo.name}
+                                            </label>
+                                            {/volist}
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group am-form-success">
+                                        <label class="am-u-sm-3 am-u-lg-2 am-form-label">形状</label>
+                                        <div class="am-u-sm-9 am-u-end">
+                                            {volist name="$type_list[4]['list']" id="vo" key="key"}
+                                            <label class="am-radio-inline">
+                                                <input type="radio" {$key == $info.shape.key+1?'checked=""':''}  name="shape" value="{$vo.id}"   class="am-ucheck-radio am-field-valid"><span class="am-ucheck-icons"><i class="am-icon-unchecked"></i><i class="am-icon-checked"></i></span>
+                                                <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                {$vo.name}
+                                            </label>
+                                            {/volist}
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group am-form-success">
+                                        <label class="am-u-sm-3 am-u-lg-2 am-form-label">发量</label>
+                                        <div class="am-u-sm-9 am-u-end">
+                                            {volist name="$type_list[5]['list']" id="vo" key="key"}
+                                            <label class="am-radio-inline">
+                                                <input type="radio" {$key == $info.hair_number.key+1?'checked=""':''}  name="hair_number" value="{$vo.id}"   class="am-ucheck-radio am-field-valid"><span class="am-ucheck-icons"><i class="am-icon-unchecked"></i><i class="am-icon-checked"></i></span>
+                                                <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                {$vo.name}
+                                            </label>
+                                            {/volist}
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group am-form-success">
+                                        <label class="am-u-sm-3 am-u-lg-2 am-form-label">体量</label>
+                                        <div class="am-u-sm-9 am-u-end">
+                                            {volist name="$type_list[6]['list']" id="vo" key="key"}
+                                            <label class="am-radio-inline">
+                                                <input type="radio" {$key == $info.body_mass.key+1?'checked=""':''}  name="body_mass" value="{$vo.id}"   class="am-ucheck-radio am-field-valid"><span class="am-ucheck-icons"><i class="am-icon-unchecked"></i><i class="am-icon-checked"></i></span>
+                                                <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                {$vo.name}
+                                            </label>
+                                            {/volist}
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group am-form-success">
+                                        <label class="am-u-sm-3 am-u-lg-2 am-form-label">长度</label>
+                                        <div class="am-u-sm-9 am-u-end">
+                                            {volist name="$type_list[7]['list']" id="vo" key="key"}
+                                            <label class="am-radio-inline">
+                                                <input type="radio" {$key == $info.length.key+1?'checked=""':''}  name="length" value="{$vo.id}"   class="am-ucheck-radio am-field-valid"><span class="am-ucheck-icons"><i class="am-icon-unchecked"></i><i class="am-icon-checked"></i></span>
+                                                <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                {$vo.name}
+                                            </label>
+                                            {/volist}
+                                        </div>
+                                    </div>
+
+                                    <div class="perm" style="display: {$info.type.key==1?'block':'none'}">
+                                        <div class="widget-head am-cf">
+                                            <div class="widget-title am-fl">烫发效果</div>
+                                        </div>
+                                        <div class="am-form-group am-form-success">
+                                            <label class="am-u-sm-3 am-u-lg-2 am-form-label">受损程度</label>
+                                            <div class="am-u-sm-9 am-u-end">
+                                                {volist name="$type_list[8]['list']" id="vo" key="key"}
+                                                <label class="am-radio-inline">
+                                                    <input type="radio"  {$key == $info.damage.key+1?'checked=""':''} name="damage" value="{$vo.id}"   class="am-ucheck-radio am-field-valid"><span class="am-ucheck-icons"><i class="am-icon-unchecked"></i><i class="am-icon-checked"></i></span>
+                                                    <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                    <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                    {$vo.name}
+                                                </label>
+                                                {/volist}
+                                            </div>
+                                        </div>
+                                        <div class="am-form-group am-form-success">
+                                            <label class="am-u-sm-3 am-u-lg-2 am-form-label">卷度</label>
+                                            <div class="am-u-sm-9 am-u-end">
+                                                {volist name="$type_list[9]['list']" id="vo" key="key"}
+                                                <label class="am-radio-inline">
+                                                    <input type="radio" {$key == $info.coiling_degree.key+1?'checked=""':''}  name="coiling_degree" value="{$vo.id}"   class="am-ucheck-radio am-field-valid"><span class="am-ucheck-icons"><i class="am-icon-unchecked"></i><i class="am-icon-checked"></i></span>
+                                                    <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                    <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                    {$vo.name}
+                                                </label>
+                                                {/volist}
+                                            </div>
+                                        </div>
+                                        <div class="am-form-group am-form-success">
+                                            <label class="am-u-sm-3 am-u-lg-2 am-form-label">卷型</label>
+                                            <div class="am-u-sm-9 am-u-end">
+                                                {volist name="$type_list[10]['list']" id="vo" key="key"}
+                                                <label class="am-radio-inline">
+                                                    <input type="radio" {$key == $info.coil_type.key+1?'checked=""':''}  name="coil_type" value="{$vo.id}"   class="am-ucheck-radio am-field-valid"><span class="am-ucheck-icons"><i class="am-icon-unchecked"></i><i class="am-icon-checked"></i></span>
+                                                    <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                    <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                    {$vo.name}
+                                                </label>
+                                                {/volist}
+                                            </div>
+                                        </div>
+                                        <div class="widget-head am-cf">
+                                            <div class="widget-title am-fl">涂抹</div>
+                                        </div>
+                                        <div class="am-form-group am-form-success">
+                                            <!-- form-require表单项必填 from 自定义-->
+                                            <label class="am-u-sm-3 am-u-lg-2 am-form-label ">涂抹量 </label>
+                                            <div class="am-u-sm-9 am-u-end">
+                                                {volist name="$type_list[12]['list']" id="vo" key="key"}
+                                                <label class="am-radio-inline">
+                                                    <input type="radio"  {:getChecked($info.content,'smear',$key)}  name="smear" value="{$vo.id}"   class="am-ucheck-radio am-field-valid"><span class="am-ucheck-icons"><i class="am-icon-unchecked"></i><i class="am-icon-checked"></i></span>
+                                                    <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                    <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                    {$vo.name}
+                                                </label>
+                                                {/volist}
+                                            </div>
+                                        </div>
+                                        <div class="am-form-group am-form-success">
+                                            <!-- form-require表单项必填 from 自定义-->
+                                            <label class="am-u-sm-3 am-u-lg-2 am-form-label ">停留 </label>
+                                            <div class="am-u-sm-9 am-u-end">
+                                                {volist name="$type_list[14]['list']" id="vo" key="key"}
+                                                <label class="am-radio-inline">
+                                                    <input type="radio"  {:getChecked($info.content,'stop',$key)}  name="stop" value="{$vo.id}"   class="am-ucheck-radio am-field-valid"><span class="am-ucheck-icons"><i class="am-icon-unchecked"></i><i class="am-icon-checked"></i></span>
+                                                    <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                    <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                    {$vo.name}
+                                                </label>
+                                                {/volist}
+                                            </div>
+                                        </div>
+
+                                        <div class="am-form-group am-form-success">
+                                            <!-- form-require表单项必填 from 自定义-->
+                                            <label class="am-u-sm-3 am-u-lg-2 am-form-label ">间隔 </label>
+                                            <div class="am-u-sm-9 am-u-end">
+                                                {volist name="$type_list[13]['list']" id="vo" key="key"}
+                                                <label class="am-radio-inline">
+                                                    <input type="radio"  {:getChecked($info.content,'apply_interval',$key)}  name="apply_interval" value="{$vo.id}"   class="am-ucheck-radio am-field-valid"><span class="am-ucheck-icons"><i class="am-icon-unchecked"></i><i class="am-icon-checked"></i></span>
+                                                    <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                    <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                    {$vo.name}
+                                                </label>
+                                                {/volist}
+                                            </div>
+                                        </div>
+                                        <div class="widget-head am-cf">
+                                            <div class="widget-title am-fl">程度</div>
+                                        </div>
+                                        <div class="am-form-group am-form-success ">
+                                            <!-- form-require表单项必填 from 自定义-->
+                                            <label class="am-u-sm-3 am-u-lg-2 am-form-label ">触感 </label>
+                                            <div class="am-u-sm-9 am-u-end">
+                                                {volist name="$type_list[15]['list']" id="vo" key="key"}
+                                                <label class="am-radio-inline">
+                                                    <input type="radio"  {:getChecked($info.content,'touch',$key)}  name="touch" value="{$vo.id}"   class="am-ucheck-radio am-field-valid"><span class="am-ucheck-icons"><i class="am-icon-unchecked"></i><i class="am-icon-checked"></i></span>
+                                                    <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                    <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                    {$vo.name}
+                                                </label>
+                                                {/volist}
+                                            </div>
+                                        </div>
+                                        <div class="am-form-group am-form-success">
+                                            <!-- form-require表单项必填 from 自定义-->
+                                            <label class="am-u-sm-3 am-u-lg-2 am-form-label ">弹性 </label>
+                                            <div class="am-u-sm-9 am-u-end">
+                                                {volist name="$type_list[16]['list']" id="vo" key="key"}
+                                                <label class="am-radio-inline">
+                                                    <input type="radio"  {:getChecked($info.content,'elastic',$key)}  name="elastic" value="{$vo.id}"   class="am-ucheck-radio am-field-valid"><span class="am-ucheck-icons"><i class="am-icon-unchecked"></i><i class="am-icon-checked"></i></span>
+                                                    <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                    <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                    {$vo.name}
+                                                </label>
+                                                {/volist}
+                                            </div>
+                                        </div>
+                                        <div class="widget-head am-cf">
+                                            <div class="widget-title am-fl">洗护</div>
+                                        </div>
+                                        <div class="am-form-group am-form-success">
+                                            <!-- form-require表单项必填 from 自定义-->
+                                            <label class="am-u-sm-3 am-u-lg-2 am-form-label ">水温 </label>
+                                            <div class="am-u-sm-9 am-u-end">
+                                                {volist name="$type_list[17]['list']" id="vo" key="key"}
+                                                <label class="am-radio-inline">
+                                                    <input type="radio"  {:getChecked($info.content,'water_temperature',$key)}  name="water_temperature" value="{$vo.id}"   class="am-ucheck-radio am-field-valid"><span class="am-ucheck-icons"><i class="am-icon-unchecked"></i><i class="am-icon-checked"></i></span>
+                                                    <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                    <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                    {$vo.name}
+                                                </label>
+                                                {/volist}
+                                            </div>
+                                        </div>
+                                        <div class="am-form-group am-form-success">
+                                            <!-- form-require表单项必填 from 自定义-->
+                                            <label class="am-u-sm-3 am-u-lg-2 am-form-label ">时长 </label>
+                                            <div class="am-u-sm-9 am-u-end">
+                                                {volist name="$type_list[18]['list']" id="vo" key="key"}
+                                                <label class="am-radio-inline">
+                                                    <input type="radio"  {:getChecked($info.content,'duration',$key)}  name="duration" value="{$vo.id}"   class="am-ucheck-radio am-field-valid"><span class="am-ucheck-icons"><i class="am-icon-unchecked"></i><i class="am-icon-checked"></i></span>
+                                                    <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                    <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                    {$vo.name}
+                                                </label>
+                                                {/volist}
+                                            </div>
+                                        </div>
+                                        <div class="widget-head am-cf">
+                                            <div class="widget-title am-fl">巷红</div>
+                                        </div>
+                                        <div class="am-form-group am-form-success">
+                                            <!-- form-require表单项必填 from 自定义-->
+                                            <label class="am-u-sm-3 am-u-lg-2 am-form-label ">杠具 </label>
+                                            <div class="am-u-sm-9 am-u-end">
+                                                {volist name="$type_list[19]['list']" id="vo" key="key"}
+                                                <label class="am-radio-inline">
+                                                    <input type="radio"  {:getChecked($info.content,'tools',$key)}  name="tools" value="{$vo.id}"   class="am-ucheck-radio am-field-valid"><span class="am-ucheck-icons"><i class="am-icon-unchecked"></i><i class="am-icon-checked"></i></span>
+                                                    <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                    <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                    {$vo.name}
+                                                </label>
+                                                {/volist}
+                                            </div>
+                                        </div>
+                                        <div class="am-form-group am-form-success">
+                                            <!-- form-require表单项必填 from 自定义-->
+                                            <label class="am-u-sm-3 am-u-lg-2 am-form-label ">水分 </label>
+                                            <div class="am-u-sm-9 am-u-end">
+                                                {volist name="$type_list[20]['list']" id="vo" key="key"}
+                                                <label class="am-radio-inline">
+                                                    <input type="radio"  {:getChecked($info.content,'water_content',$key)}  name="water_content" value="{$vo.id}"   class="am-ucheck-radio am-field-valid"><span class="am-ucheck-icons"><i class="am-icon-unchecked"></i><i class="am-icon-checked"></i></span>
+                                                    <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                    <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                    {$vo.name}
+                                                </label>
+                                                {/volist}
+                                            </div>
+                                        </div>
+                                        <div class="am-form-group am-form-success">
+                                            <!-- form-require表单项必填 from 自定义-->
+                                            <label class="am-u-sm-3 am-u-lg-2 am-form-label ">角度 </label>
+                                            <div class="am-u-sm-9 am-u-end">
+                                                {volist name="$type_list[21]['list']" id="vo" key="key"}
+                                                <label class="am-radio-inline">
+                                                    <input type="radio"  {:getChecked($info.content,'angle',$key)}  name="angle" value="{$vo.id}"   class="am-ucheck-radio am-field-valid"><span class="am-ucheck-icons"><i class="am-icon-unchecked"></i><i class="am-icon-checked"></i></span>
+                                                    <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                    <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                    {$vo.name}
+                                                </label>
+                                                {/volist}
+                                            </div>
+                                        </div>
+                                        <div class="am-form-group am-form-success">
+                                            <!-- form-require表单项必填 from 自定义-->
+                                            <label class="am-u-sm-3 am-u-lg-2 am-form-label ">张力 </label>
+                                            <div class="am-u-sm-9 am-u-end">
+                                                {volist name="$type_list[22]['list']" id="vo" key="key"}
+                                                <label class="am-radio-inline">
+                                                    <input type="radio"  {:getChecked($info.content,'tension',$key)}  name="tension" value="{$vo.id}"   class="am-ucheck-radio am-field-valid"><span class="am-ucheck-icons"><i class="am-icon-unchecked"></i><i class="am-icon-checked"></i></span>
+                                                    <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                    <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                    {$vo.name}
+                                                </label>
+                                                {/volist}
+                                            </div>
+                                        </div>
+                                        <div class="am-form-group am-form-success">
+                                            <!-- form-require表单项必填 from 自定义-->
+                                            <label class="am-u-sm-3 am-u-lg-2 am-form-label ">手法 </label>
+                                            <div class="am-u-sm-9 am-u-end">
+                                                {volist name="$type_list[23]['list']" id="vo" key="key"}
+                                                <label class="am-radio-inline">
+                                                    <input type="radio"  {:getChecked($info.content,'technique',$key)}  name="technique" value="{$vo.id}"   class="am-ucheck-radio am-field-valid"><span class="am-ucheck-icons"><i class="am-icon-unchecked"></i><i class="am-icon-checked"></i></span>
+                                                    <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                    <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                    {$vo.name}
+                                                </label>
+                                                {/volist}
+                                            </div>
+                                        </div>
+                                        <div class="widget-head am-cf">
+                                            <div class="widget-title am-fl">加热</div>
+                                        </div>
+                                        <div class="am-form-group am-form-success">
+                                            <!-- form-require表单项必填 from 自定义-->
+                                            <label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">温度 </label>
+                                            <div class="am-u-sm-9 am-u-end">
+                                                {volist name="$type_list[24]['list']" id="vo" key="key"}
+                                                <label class="am-radio-inline">
+                                                    <input type="radio"  {:getChecked($info.content,'temperature',$key)}  name="temperature" value="{$vo.id}"   class="am-ucheck-radio am-field-valid"><span class="am-ucheck-icons"><i class="am-icon-unchecked"></i><i class="am-icon-checked"></i></span>
+                                                    <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                    <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                    {$vo.name}
+                                                </label>
+                                                {/volist}
+                                            </div>
+                                        </div>
+                                        <div class="am-form-group am-form-success">
+                                            <!-- form-require表单项必填 from 自定义-->
+                                            <label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">恒温 </label>
+                                            <div class="am-u-sm-9 am-u-end">
+                                                {volist name="$type_list[25]['list']" id="vo" key="key"}
+                                                <label class="am-radio-inline">
+                                                    <input type="radio"  {:getChecked($info.content,'constant_temperature',$key)}  name="constant_temperature" value="{$vo.id}"   class="am-ucheck-radio am-field-valid"><span class="am-ucheck-icons"><i class="am-icon-unchecked"></i><i class="am-icon-checked"></i></span>
+                                                    <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                    <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                    {$vo.name}
+                                                </label>
+                                                {/volist}
+                                            </div>
+                                        </div>
+                                        <div class="am-form-group am-form-success">
+                                            <!-- form-require表单项必填 from 自定义-->
+                                            <label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">间隔 </label>
+                                            <div class="am-u-sm-9 am-u-end">
+                                                {volist name="$type_list[26]['list']" id="vo" key="key"}
+                                                <label class="am-radio-inline">
+                                                    <input type="radio"  {:getChecked($info.content,'heating_interval',$key)}  name="heating_interval" value="{$vo.id}"   class="am-ucheck-radio am-field-valid"><span class="am-ucheck-icons"><i class="am-icon-unchecked"></i><i class="am-icon-checked"></i></span>
+                                                    <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                    <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                    {$vo.name}
+                                                </label>
+                                                {/volist}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="dye" style="display: {$info.type.key==2?'block':'none'}">
+                                        <div class="widget-head am-cf">
+                                            <div class="widget-title am-fl">染发效果</div>
+                                        </div>
+                                        <div class="am-form-group">
+                                            <!-- form-require表单项必填 from 自定义-->
+                                            <label class="am-u-sm-3 am-u-lg-2 am-form-label">底色</label>
+                                            <div class="am-u-sm-9 am-u-end">
+                                                <input type="text" class="tpl-form-input" name="background_color" value="{$info.background_color}" placeholder="请输入底色">
+                                            </div>
+                                        </div>
+                                        <div class="am-form-group">
+                                            <!-- form-require表单项必填 from 自定义-->
+                                            <label class="am-u-sm-3 am-u-lg-2 am-form-label">底色值</label>
+                                            <div class="am-u-sm-9 am-u-end">
+                                                <input type="text" class="tpl-form-input" name="background_color_number" value="{:getInputValue($info.content,'background_color_number')}" placeholder="请输入底色值">
+                                            </div>
+                                        </div>
+                                        <!--表单项开始 from 妹子-->
+                                        <div class="am-form-group">
+                                            <!-- form-require表单项必填 from 自定义-->
+                                            <label class="am-u-sm-3 am-u-lg-2 am-form-label">效果色</label>
+                                            <div class="am-u-sm-9 am-u-end">
+                                                <input type="text" class="tpl-form-input" name="effect_color" value="{$info.effect_color}" placeholder="请输入效果色">
+                                            </div>
+                                        </div>
+                                        <!--表单项开始 from 妹子-->
+                                        <div class="am-form-group">
+                                            <!-- form-require表单项必填 from 自定义-->
+                                            <label class="am-u-sm-3 am-u-lg-2 am-form-label">效果值</label>
+                                            <div class="am-u-sm-9 am-u-end">
+                                                <input type="text" class="tpl-form-input" name="effect_number" value="{:getInputValue($info.content,'effect_number')}" placeholder="请输入效果值">
+                                            </div>
+                                        </div>
+                                        <div class="widget-head am-cf">
+                                            <div class="widget-title am-fl">色料</div>
+                                        </div>
+                                        <div class="am-form-group">
+                                            <!-- form-require表单项必填 from 自定义-->
+                                            <label class="am-u-sm-3 am-u-lg-2 am-form-label">色号</label>
+                                            <div class="am-u-sm-9 am-u-end">
+                                                <input type="text" class="tpl-form-input" name="color_number" value="{:getInputValue($info.content,'color_number')}" placeholder="请输入色号">
+                                            </div>
+                                        </div>
+                                        <div class="am-form-group">
+                                            <!-- form-require表单项必填 from 自定义-->
+                                            <label class="am-u-sm-3 am-u-lg-2 am-form-label">色料值</label>
+                                            <div class="am-u-sm-9 am-u-end">
+                                                <input type="text" class="tpl-form-input" name="color_number_value" value="{:getInputValue($info.content,'color_number_value')}" placeholder="请输入色料值">
+                                            </div>
+                                        </div>
+                                        <div class="am-form-group">
+                                            <!-- form-require表单项必填 from 自定义-->
+                                            <label class="am-u-sm-3 am-u-lg-2 am-form-label">比例</label>
+                                            <div class="am-u-sm-9 am-u-end">
+                                                <input type="text" class="tpl-form-input" name="proportion" value="{:getInputValue($info.content,'proportion')}" placeholder="请输入比例">
+                                            </div>
+                                        </div>
+                                        <div class="am-form-group am-form-success">
+                                            <!-- form-require表单项必填 from 自定义-->
+                                            <label class="am-u-sm-3 am-u-lg-2 am-form-label">氧化剂</label>
+                                            <div class="am-u-sm-9 am-u-end">
+                                                {volist name="$type_list[27]['list']" id="vo" key="key"}
+                                                <label class="am-radio-inline">
+                                                    <input type="radio"  {:getChecked($info.content,'oxidant',$key)}  name="oxidant" value="{$vo.id}"   class="am-ucheck-radio am-field-valid"><span class="am-ucheck-icons"><i class="am-icon-unchecked"></i><i class="am-icon-checked"></i></span>
+                                                    <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                    <span class="am-ucheck-icons">
+                                                    <i class="am-icon-unchecked"></i><i class="am-icon-checked"></i>
+                                                </span>
+                                                    {$vo.name}
+                                                </label>
+                                                {/volist}
+                                            </div>
+                                        </div>
+                                        <div class="widget-head am-cf">
+                                            <div class="widget-title am-fl">操作</div>
+                                        </div>
+                                        <div class="am-form-group">
+                                            <!-- form-require表单项必填 from 自定义-->
+                                            <label class="am-u-sm-3 am-u-lg-2 am-form-label">涂抹量</label>
+                                            <div class="am-u-sm-9 am-u-end">
+                                                <input type="text" class="tpl-form-input" name="dye_smear" value="{:getInputValue($info.content,'dye_smear')}" placeholder="请输入涂抹量">
+                                            </div>
+                                        </div>
+                                        <div class="am-form-group">
+                                            <!-- form-require表单项必填 from 自定义-->
+                                            <label class="am-u-sm-3 am-u-lg-2 am-form-label">停留时间</label>
+                                            <div class="am-u-sm-9 am-u-end">
+                                                <input type="text" class="tpl-form-input" name="dye_stop" value="{:getInputValue($info.content,'dye_stop')}" placeholder="请输入停留时间">
+                                            </div>
+                                        </div>
+                                        <div class="am-form-group">
+                                            <!-- form-require表单项必填 from 自定义-->
+                                            <label class="am-u-sm-3 am-u-lg-2 am-form-label">次数</label>
+                                            <div class="am-u-sm-9 am-u-end">
+                                                <input type="text" class="tpl-form-input" name="dye_number" value="{:getInputValue($info.content,'dye_number')}" placeholder="请输入次数">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="widget-head am-cf">
+                                        <div class="widget-title am-fl">其他信息</div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <!-- form-require表单项必填 from 自定义-->
+                                        <label class="am-u-sm-3 am-u-lg-2 am-form-label">备注 </label>
+                                        <div class="am-u-sm-9 am-u-end">
+                                            <textarea name="desc"  cols="30" rows="3">{$info.desc}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <div class="am-u-sm-9 am-u-sm-push-3 am-margin-top-lg">
+                                            <input type="hidden" name="submit" value="提交">
+                                            <button type="submit" class="j-submit zx-addBut " id="btn" value="提交" data-am-loading="{spinner: 'circle-o-notch', loadingText: '提交中...'}">提交</button>
+                                            <a href="{:url('index')}"><button class="btn" type="button">返回</button></a>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{include file="common/uploads"/}
+<script>
+    var  draw_images = '{$info.images.key}';
+    if(draw_images == '' || !draw_images){
+        draw_images = [];
+    }else{
+        draw_images = draw_images.split(",");
+    }
+    img_arr_coayes[0] = draw_images;
+    init_uploads('logo_us_group55');
+
+    function onChangeTar(){
+        var value = $('input[name=type]:checked').val();
+        if(value == 1){
+            $(".perm").show();
+            $(".dye").hide();
+        }else if(value == 2){
+            $(".perm").hide();
+            $(".dye").show();
+        }
+    }
+
+</script>
+</body>
+</html>

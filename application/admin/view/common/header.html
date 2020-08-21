@@ -1,0 +1,423 @@
+
+
+<title>{$admin_config['name']}</title>
+<meta name="description"  content="{$admin_config['desc']}" />
+<meta name="keywords"  content="{$admin_config['key_word']}" />
+<link type="image/png" href="{$admin_config['logo']['value']}" rel="shortcut icon">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="renderer" content="webkit">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<link rel="stylesheet" href="/static/admin/css/amazeui.min.css">
+<link rel="stylesheet" href="/static/admin/css/app.css">
+<link rel="stylesheet" href="/static/admin/css/font_783249_3sbba6jrt9y.css">
+<script src="/static/admin/js/jquery.min.js"></script>
+<script src="/static/admin/js/font_783249_e5yrsf08rap.js"></script>
+<link rel="stylesheet" href="/static/admin/css/layer.css" id="layuicss-layer">
+<!-- 脚步js开始 -->
+<script src="/static/admin/js/layer.js "></script>
+<script src="/static/admin/js/jquery.form.min.js "></script>
+<script src="/static/admin/js/amazeui.min.js "></script>
+<!--<script src="/static/admin/js/amazeui.switch.min.js "></script>-->
+<script src="/static/admin/js/webuploader.html5only.js "></script>
+<script src="/static/admin/js/art-template.js "></script>
+<script src="/static/admin/js/app.js "></script>
+<script src="/static/admin/js/file.library.js "></script>
+<script src="/static/admin/js/zx.js"></script>
+<!--结束-->
+<!--微擎模板文件-->
+<link href="/static/admin/css/bootstrap.css" rel="stylesheet">
+<link href="/static/admin/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+<link href="/static/admin/resource/css/common.css?v=20170426" rel="stylesheet">
+<script type="text/javascript">
+    if (navigator.appName == 'Microsoft Internet Explorer') {
+        if (navigator.userAgent.indexOf("MSIE 5.0") > 0 || navigator.userAgent.indexOf("MSIE 6.0") > 0 || navigator.userAgent.indexOf("MSIE 7.0") > 0) {
+            alert('您使用的 IE 浏览器版本过低, 推荐使用 Chrome 浏览器或 IE8 及以上版本浏览器.');
+        }
+    }
+</script>
+<style>
+    .clear_scrollbar::-webkit-scrollbar {
+        display: none
+    }
+
+    .btn-group .active {
+        background-color: #428bca;
+        color: #fff;
+    }
+    .tpl-form-line-form .am-checkbox, .tpl-form-line-form .am-checkbox-inline, .tpl-form-line-form .am-radio, .tpl-form-line-form .am-radio-inline{
+        padding-top: 0;
+    }
+    .am-form-success .am-u-end{
+        padding-top: .8rem;
+    }
+    .zx-group-460{
+        width: 460px;
+    }
+
+    .input-group-btn {
+        display: block !important;
+    }
+
+    .am-selected-btn {
+        border-radius: 4px;
+        font-size: 12px;
+    }
+
+    .am-tabs-d2 .am-tabs-nav {
+        background: #fff;
+        border-bottom: 1px solid #eef1f5;
+    }
+
+    .am-tabs-nav {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .am-tabs .am-tabs-nav li {
+        width: 120px;
+        line-height: 40px;
+        height: 40px;
+        padding: 0;
+    }
+
+    .am-tabs .am-tabs-nav li a {
+        width: 120px;
+        line-height: 40px;
+        height: 40px;
+        padding: 0;
+        display: block;
+        margin: 0;
+        text-align: center;
+        background: #fff;
+    }
+
+    .am-tabs-d2 .am-tabs-nav > .am-active {
+        position: relative;
+        background-color: #fcfcfc;
+        border-bottom: 2px solid #22c397;
+    }
+
+    .am-tabs-d2 .am-tabs-nav > .am-active a {
+        color: #22c397;
+    }
+
+    .am-tabs-d2 .am-tabs-nav > .am-active:after {
+        border-bottom-color: #22c397;
+    }
+
+    /*系统底层时间插件样式*/
+    .daterangepicker select.ampmselect, .daterangepicker select.hourselect, .daterangepicker select.minuteselect {
+        width: auto;
+        padding-right: 40px;
+    }
+
+    [class*=am-icon-]:before {
+        line-height: 30px;
+    }
+
+    table td {
+        text-align: left;
+    }
+
+    .sadvsopweb-list li {
+        position: relative;
+    }
+    .sadvsopweb-list li:hover {
+        border: 2px solid #428bca;
+    }
+    .sadvsopweb-list li img {
+       width: 100%;
+    }
+
+    .material-content .material-body .padingdessa {
+        display: inline-block;
+    }
+
+    .dim {
+        opacity: 0.6;
+        filter: alpha(opacity=60);
+    }
+
+    .material-content .material-body .dimbackddsa {
+        display: block;
+        margin: 0 auto;
+    }
+
+    .dimback {
+        background: #000;
+    }
+</style>
+
+<script type="text/javascript" src="/static/admin/resource/js/lib/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="/static/admin/resource/js/lib/bootstrap.min.js"></script>
+<script type="text/javascript" src="/static/admin/resource/js/app/util.js?v=20170426"></script>
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width:980px" >
+        <div class="modal-content" >
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">选择图片</h4>
+            </div>
+            <div class="modal-body material-content clearfix">
+                <div class="material-head">
+                    <form enctype="multipart/form-data" id="form1">
+                        <div class="btn-uploader form-inline" style="z-index: 10" ng-show="index<2">
+                            <button type="button" onclick="delAllImages()" class="btn btn-danger" >删除</button>
+                            <button type="button" onclick="f.click()" class="btn btn-primary ng-binding">上传图片
+                            </button>
+                            <input type="file" id="f" onchange="sc(this);" name="file[]" multiple style="display: none">
+                        </div>
+                    </form>
+                </div>
+                <div id="image" class="material-body" ng-show="index!=2">
+                    <ul class="am-avg-sm-5 am-thumbnails sadvsopweb-list">
+                        {volist name="images" id="vo"}
+                        <li onclick="sadvsopwebClick(this)" data-src="{$vo.path.value}" data-key="{$vo.path.key}"   class="am-thumbnail" data-id="{$vo.id}" onmousemove="sadvsopwebMouseover(this)" onmouseout="sadvsopwebMouseout(this)">
+                            <img  src="{$vo.path.value}" alt="">
+                            <div class="mask"><span class="wi wi-right"></span></div>
+                            <div class="del"><span class="wi wi-delete2"></span></div>
+                        </li>
+                        {/volist}
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary"  onclick="onChoiceImage()">确认</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+
+<!-- 模态提示框（Modal） -->
+<div class="modal fade" id="myModalAat" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">×
+                </button>
+                <h4 class="modal-title" >
+                    提示
+                </h4>
+            </div>
+            <div class="modal-body" id="myModalAatTips">
+                按下 ESC 按钮退出。
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="onTipsShow()"  data-dismiss="modal" class="btn btn-primary">
+                    确认
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script>
+    var image_del = [];
+    var image_all = [];
+    var image_obj = {};
+    function showImageDialog(id,logo_us) {
+        $('#myModal').modal('show');
+        image_obj = {
+            id:id,
+            logo_us:logo_us
+        };
+    }
+    function onChoiceImage() {
+        if(image_all.length != 0){
+            $('#'+image_obj.id).val(image_all[0].value);
+            $('.'+image_obj.logo_us).children("img").attr('src',image_all[0].src);
+        }
+        image_all = [];
+        image_del = [];
+        $('.mask').removeClass('dimbackddsa');
+        $('#myModal').modal('hide');
+    }
+
+    function sadvsopwebClick(obj) {
+        var value = $(obj).attr('data-id');
+        var data  = {
+            src:$(obj).attr('data-src'),
+            value:$(obj).attr('data-key'),
+        };
+        var result = image_del.indexOf(value);
+        if(result == -1){
+            image_del.push(value);
+            image_all.push(data);
+        }else{
+           image_del.splice(result,1);
+           image_all.splice(result,1);
+        }
+        $(obj).children('.mask').toggleClass('dimbackddsa');
+    }
+    function sadvsopwebMouseover(obj) {
+        $(obj).children('.del').addClass('padingdessa');
+    }
+    function sadvsopwebMouseout(obj) {
+        $(obj).children('.del').removeClass('padingdessa');
+    }
+
+    function onTips(message) {
+        $("#myModalAatTips").text(message);
+        $("#myModalAat").modal({});
+    }
+
+    function delAllImages() {
+        $.post("{:url('upload/delImg')}",{
+            arr:image_del
+        },function(res){
+            if (res.status == 1) {
+                var html = '';
+                $.each(res.data, function (index, item) {
+                    html += '<li onclick="sadvsopwebClick(this)" data-key="'+item.path.key+'"  data-src="'+item.path.value+'" class="am-thumbnail" data-id="'+item.id+'" onmousemove="sadvsopwebMouseover(this)" onmouseout="sadvsopwebMouseout(this)">';
+                    html += '<img  alt="140*140" src="' + item.path.value + '"/>';
+                    html += '<div class="mask"><span class="wi wi-right"></span></div>';
+                    html += '<div class="del"><span class="wi wi-delete2"></span></div>';
+                    html += '</li>';
+                });
+                $(".sadvsopweb-list").empty();
+                $(".sadvsopweb-list").append(html);
+                image_all = [];
+                image_del = [];
+                onTips('图片删除成功');
+            }else{
+                onTips(res.message);
+            }
+        });
+    }
+
+    function sc(obj) {
+        var data = new FormData($('#form1')[0]);
+        $(obj).val('');
+        $.ajax({
+            url: "{:url('upload/upImage')}",
+            type: 'POST',
+            data: data,
+            dataType: 'JSON',
+            processData: false,
+            contentType: false,
+            success: function (event) {
+                if (event.status == 1) {
+                    var html = '';
+                    $.each(event.data, function (index, item) {
+                        html += '<li onclick="sadvsopwebClick(this)"  data-key="'+item.path.key+'" data-src="'+item.path.value+'"  class="am-radius"data-id="'+item.id+'" onmousemove="sadvsopwebMouseover(this)" onmouseout="sadvsopwebMouseout(this)">';
+                        html += '<img alt="140*140" src="' + item.path.value + '" />';
+                        html += '<div class="mask"><span class="wi wi-right"></span></div>';
+                        html += '<div class="del"><span class="wi wi-delete2"></span></div>';
+                        html += '</li>';
+                    });
+                    $(".sadvsopweb-list").prepend(html);
+                }else{
+                    onTips(event.message);
+                }
+            },
+            complete: function (event) {
+
+            }
+        });
+        return false;
+    }
+
+    function deleteImage(id,logo_us) {
+        $("#"+id).val('');
+        $('.'+logo_us).children("img").attr('src','/uploads/nopic.jpg');
+    }
+
+    //公共删除
+    function deletes(id) {
+        if (id == '' || id == undefined) {
+            layer.msg('非法进入', {icon: 2, time: 1000});
+            return false;
+        }
+        layer.confirm('确定删除？', {icon: 3, title: '提示'}, function (index) {
+            $.post("{:url('del')}", {id: id}, function (res) {
+                layer.close(index);
+                if (res.status == 0) {
+                    layer.msg(res.message, {icon: 1, time: 1000});
+                    setTimeout(function () {
+                        location.reload();
+                    }, 1000);
+                } else {
+                    layer.msg(res.message, {icon: 2, time: 1000});
+                }
+            }, "JSON")
+        })
+    }
+
+    //公共假删除
+    function fakerDelete(id) {
+        if (id == '' || id == undefined) {
+            layer.msg('非法进入', {icon: 2, time: 1000});
+            return false;
+        }
+        layer.confirm('确定删除？', {icon: 3, title: '提示'}, function (index) {
+            $.post("{:url('fakerDel')}", {id: id}, function (res) {
+                layer.close(index);
+                if (res.status == 0) {
+                    layer.msg(res.message, {icon: 1, time: 1000});
+                    setTimeout(function () {
+                        location.reload();
+                    }, 1000);
+                } else {
+                    layer.msg(res.message, {icon: 2, time: 1000});
+                }
+            }, "JSON");
+        })
+    }
+    //公用修改状态
+    function onStatusAttr(id,status,type =1) {
+        var message ="是否确认下架?";
+        if(status ==1){
+            message = "是否确认上架??";
+        }
+        if(type ==2){
+            message = "是否审核驳回??";
+            if(status ==1){
+                message ="是否确认审核通过?";
+            }
+        }
+        layer.confirm(message, {icon: 1, title: '提示'}, function (index) {
+            $.post("{:url('setStatus')}", {id: id,status:status}, function (res) {
+                layer.close(index);
+                if (res.status == 0) {
+                    layer.msg(res.message, {icon: 1, time: 1000});
+                    setTimeout(function () {
+                        location.reload();
+                    }, 1000);
+                } else {
+                    layer.msg(res.message, {icon: 2, time: 1000});
+                }
+            }, "JSON");
+        })
+    }
+    //搜索的时候切换栏目用的
+    function onSubmitSearch(id,status) {
+        $("#"+id).val(status);
+        $("#formSearch").submit();
+    }
+
+    function commonSort(obj,id) {
+        if (id == '' || id == undefined) {
+            layer.msg('非法进入', {icon: 2, time: 1000});
+            return false;
+        }
+        var sort = $(obj).val();
+        $.post("{:url('commonSort')}", {id: id,sort:sort}, function (res) {
+            if (res.status == 0) {
+                layer.msg(res.message, {icon: 1, time: 1000});
+                setTimeout(function () {
+                    location.reload();
+                }, 1000);
+            } else {
+                layer.msg(res.message, {icon: 2, time: 1000});
+            }
+        }, "JSON")
+
+    }
+
+</script>

@@ -1,0 +1,68 @@
+<html lang="en" class="js cssanimations">
+<head>
+    {include file="common/header"/}
+</head>
+<body data-type="" style="" class="">
+<div class="am-g tpl-g" style="">
+    <!-- 头部 -->
+    {include file="common/nav"/}
+    <!-- 侧边导航栏 -->
+    {include file="common/menu"/}
+    {include file="common/menu_style" /}
+    <div class="tpl-content-wrapper" style="margin-left: 130px;">
+        <div class="row-content am-cf" style="padding-top: 30px;">
+            <!--widget自定义右侧盒子 from 自定义 am-cf 清除全部浮动  from 妹子-->
+            <div class="widget am-cf" style="">
+                <form action=""
+                      method="post" class="am-form tpl-form-line-form" style="">
+                    <!--右侧正文 from 自定义 -->
+                    <div class="widget-body" style="">
+                        <!--右侧正文 规定所有边距为0 from bootstap -->
+                        <fieldset style="">
+                            <!--小标题 from 自定义-->
+                            <div class="widget-head am-cf">
+                                <div class="widget-title am-fl">用户信息</div>
+                            </div>
+                            <div class="am-form-group">
+                                <label class="am-u-sm-3 am-u-lg-2 am-form-label">账号
+                                </label>
+                                <div class="am-u-sm-9 am-u-end">
+                                    <input type="hidden" name="id" value="{$admin.id}">
+                                    <input type="text"  name="username" value="{$admin.username}" class="tpl-form-input">
+                                </div>
+                            </div>
+                            <div class="am-form-group">
+                                <label class="am-u-sm-3 am-u-lg-2 am-form-label">密码
+                                </label>
+                                <div class="am-u-sm-9 am-u-end">
+                                    <input type="password"  name="password"  value="" class="tpl-form-input">
+                                </div>
+                            </div>
+                            <div class="am-form-group">
+                                <label class="am-u-sm-3 am-u-lg-2 am-form-label">确认密码
+                                </label>
+                                <div class="am-u-sm-9 am-u-end">
+                                    <input type="password"  name="password1"  value="" class="tpl-form-input">
+                                </div>
+                            </div>
+                            <div class="am-form-group">
+                                <div class="am-u-sm-9 am-u-sm-push-3 am-margin-top-lg">
+                                    <button type="submit" class="j-submit zx-addBut" value="提交">
+                                        提交
+                                    </button>
+                                    <a href="{:url('index')}"
+                                       id="a-back-index">
+                                        <button class="btn" type="button">返回</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

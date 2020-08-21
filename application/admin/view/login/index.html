@@ -1,0 +1,75 @@
+<html lang="zh-cn">
+<head>
+    <style type="text/css">@charset "UTF-8";
+    [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak, .ng-hide:not(.ng-hide-animate) {
+        display: none !important;
+    }
+
+    ng\:form {
+        display: block;
+    }
+
+    .ng-animate-shim {
+        visibility: hidden;
+    }
+
+    .ng-anchor {
+        position: absolute;
+    }</style>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="shortcut icon" href="/static/admin/resource/images/favicon.ico">
+    <link href="/static/admin/resource/css/bootstrap.min.css?v=20170426" rel="stylesheet">
+    <link href="/static/admin/resource/css/common.css?v=20170426" rel="stylesheet">
+    <script type="text/javascript" src="/static/admin/resource/js/lib/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="/static/admin/resource/js/lib/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/admin/resource/js/app/util.js?v=20170426"></script>
+</head>
+<body>
+<div class="loader" style="display:none">
+    <div class="la-ball-clip-rotate">
+        <div></div>
+    </div>
+</div>
+<div class="system-login" style="background-image: url('/static/admin/resource/images/bg-login.png'); height: 789px;">
+
+    <!--<div class="head">-->
+        <!--<a href="/" class="logo-version">-->
+            <!--<img src="/static/admin/resource/images/logo/logo.png" class="logo">-->
+            <!--<span class="version hidden">1.7.5</span>-->
+        <!--</a>-->
+    <!--</div>-->
+    <div class="login-panel">
+        <div class="title">
+            <a href="./index.php?c=user&amp;a=login&amp;login_type=system" class="active">账号密码</a>
+        </div>
+        <form action="" method="post" role="form" class="we7-form">
+            <div class="input-group-vertical">
+                <input name="username" type="text" class="form-control " placeholder="请输入用户名登录">
+                <input name="password" type="password" class="form-control password" placeholder="请输入登录密码">
+            </div>
+            <div class="form-inline" style="margin-bottom: 15px;">
+                <div class="pull-right">
+                    <a href="./index.php?c=user&amp;a=find-password&amp;" target="_blank" class="color-default"></a>
+                </div>
+                <!--<div class="checkbox">-->
+                    <!--<input type="checkbox" value="true" id="rember" name="rember">-->
+                    <!--<label for="rember">记住用户名</label>-->
+                <!--</div>-->
+            </div>
+            <div class="login-submit text-center">
+                <input type="submit" id="submit" name="submit" value="登录" class="btn btn-primary btn-block">
+                <!--<div class="text-right">-->
+                    <!--<a href="./index.php?c=user&amp;a=register&amp;" class="color-default">立即注册</a>-->
+                <!--</div>-->
+                <!--<input name="token" value="5d86ea87" type="hidden">-->
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

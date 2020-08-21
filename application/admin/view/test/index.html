@@ -1,0 +1,189 @@
+<html lang="en" class="js cssanimations">
+<head>
+
+    {include file="common/header"/}
+</head>
+
+<body data-type="" style="">
+<div class="am-g tpl-g">
+    <!-- 头部 -->
+    {include file="common/nav"/}
+    <!-- 侧边导航栏 -->
+    {include file="common/menu"/}
+    {include file="common/menu_style" /}
+    <!-- 内容区域 start -->
+    <div class="tpl-content-wrapper">
+        <div class="row-content am-cf">
+            <div class="row">
+                <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                    <div class="widget am-cf">
+                        <div class="widget-head am-cf">
+                            <div class="widget-title am-cf">用户列表</div>
+                        </div>
+                        <div class="widget-body am-fr">
+                            <!-- 工具栏 -->
+                            <div class="page_toolbar  ">
+                                <div class="am-tabs am-tabs-d2">
+                                    <ul class="am-tabs-nav am-cf">
+                                        <li class="am-active"><a href="javascript:;" onclick="onSubmitSearch('status',-1)">预审中
+                                            (2) </a></li>
+                                        <li><a href="javascript:;" onclick="onSubmitSearch('status',1)">预审通过
+                                            ( 217 ) </a></li>
+                                        <li><a href="javascript:;" onclick="onSubmitSearch('status',-2)">预审驳回
+                                            (6 ) </a></li>
+                                    </ul>
+                                </div>
+                                <form action="" method="get" class="form-horizontal" role="form" id="formSearch">
+                                    <div class="am-u-sm-12 ">
+									<span class="zx-form-span">
+										搜索：
+									</span>
+                                        <div class="am-form-group tpl-form-border-form zx-form-input zx-display zx-group">
+                                            <input type="text" class="am-form-field" name="title" placeholder="输入姓名或电话进行查询" value="" style="border-radius: 4px;width: 240px;">
+                                            <input type="hidden" name="page" value="1">
+                                            <input type="hidden" name="status" id="status" value="-1">
+                                        </div>
+                                        <span class="zx-form-span">
+										性别：
+									    </span>
+                                        <div class="am-form-group tpl-form-border-form zx-form-input zx-display zx-group">
+                                            <div class="am-form-group tpl-form-border-form zx-form-input zx-display zx-group">
+                                                <select name="sex" data-am-selected="{ btnSize: 'sm',placeholder:'请选择状态', maxHeight: 400}" style="display: none;">
+                                                    <option value="0" selected="">请下拉选择</option>
+                                                    <option value="1">男</option>
+                                                    <option value="2">女</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <span class="zx-form-span">
+										身高：
+									    </span>
+                                        <div class="am-form-group tpl-form-border-form zx-form-input zx-display zx-group">
+                                            <div class="am-form-group tpl-form-border-form zx-form-input zx-display zx-group">
+                                                <select name="height" data-am-selected="{ btnSize: 'sm',placeholder:'请选择状态', maxHeight: 400}" style="display: none;">
+                                                    <option value="0" selected="">请下拉选择</option>
+                                                    <option value="1">150-160</option>
+                                                    <option value="2">160-170</option>
+                                                    <option value="3">170-180</option>
+                                                    <option value="4">180以上</option>
+                                                </select></div>
+                                        </div>
+                                        <span class="zx-form-span">
+										学历：
+									    </span>
+                                        <div class="am-form-group tpl-form-border-form zx-form-input zx-display zx-group">
+                                            <div class="am-form-group tpl-form-border-form zx-form-input zx-display zx-group">
+                                                <select name="education" data-am-selected="{ btnSize: 'sm',placeholder:'请选择状态', maxHeight: 400}" style="display: none;">
+                                                    <option value="0" selected="">请下拉选择</option>
+                                                    <option value="1">小学</option>
+                                                    <option value="2">初中</option>
+                                                    <option value="3">高中</option>
+                                                    <option value="4">大专</option>
+                                                    <option value="5">本科</option>
+                                                    <option value="6">研究生及以上</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <span class="zx-form-span">
+										 <!-- 查询按钮样式 -->
+                                        <div class="zx-but-check">
+                                            <button type="submit">
+                                                <i class="fa fa-search"></i> 查询
+                                            </button>
+                                        </div>
+									</span>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="am-u-sm-12 am-fl am-margin-bottom-xs">
+                                <div class="am-btn-group am-btn-group-xs ">
+                                    <a class="zx-addBut" href="{:url('add')}">
+                                        <i class="fa fa-plus"></i> 添加商品
+                                    </a>
+                                </div>
+
+                                <div class="am-btn-group am-btn-group-xs ">
+                                    <a class="zx-addBut" href="{:url('material')}">
+                                        海报生成器
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="am-scrollable-horizontal am-u-sm-12">
+                                <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black am-text-nowrap ">
+                                    <thead class="navbar-inner">
+                                    <tr>
+                                        <th>姓名</th>
+                                        <th>头像</th>
+                                        <th>性别</th>
+                                        <th>身高</th>
+                                        <th>年龄</th>
+                                        <th>电话</th>
+                                        <th>地址</th>
+                                        <th>状态</th>
+                                        <th>创建时间</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>彭静</td>
+                                        <td><img src="http://puxianhunjie.oss-cn-beijing.aliyuncs.com/uploads/20191226/eb5857547ca659e35e6d248b6c489d2b.jpg?x-oss-process=image%2Fresize%2Cm_lfit%2Cw_600&amp;OSSAccessKeyId=LTAI4FqAm8E5gzD8TpWnzPdY&amp;Expires=1577342168&amp;Signature=qs%2BYA5sAMk7%2FyEL0yOMUpdpptK0%3D" width="50" alt=""></td>
+                                        <td><input type="text " onblur="commonSort(this,'16')" value="30"></td>
+                                        <td>156cm</td>
+                                        <td>32岁</td>
+                                        <td>13859827720</td>
+                                        <td>仙游县,赖店镇</td>
+                                        <td>
+                                            <button type="button" class="btn btn-warning btn-xs">预审中</button>
+                                        </td>
+                                        <td>2019-12-26 12:33:53</td>
+                                        <td>
+                                            <a href="" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> 编辑</a>
+                                            <a class="btn btn-danger btn-xs" onclick="deletes('16')"><i class="fa fa-trash-o"></i> 删除</a>
+                                        </td>
+
+                                    </tr>
+                                    {volist name="$list" id="vo"}
+                                    <tr>
+                                        <td>{$vo.id}</td>
+                                        <td><input type="text " onblur="commonSort(this,'{$vo.id}')" value="{$vo.sort}"></td>
+                                        <td>
+                                            {if condition="$vo.status ==1"}
+                                            <button type="button" class="btn btn-success btn-xs" onclick="onStatusAttr('{$vo.id}',0)">已上架</button>
+                                            {elseif condition="$vo.status ==0" /}
+                                            <button type="button" class="btn btn-danger btn-xs" onclick="onStatusAttr('{$vo.id}',1)">已下架</button>
+                                            {elseif condition="$vo.status ==-1" /}
+                                            <button type="button" class="btn btn-danger btn-xs" onclick="onStatusAttr('{$vo.id}',1)">已删除</button>
+                                            {/if}
+                                        </td>
+                                        <td>
+                                            <a href="{:url('edit',['id'=> $vo.id])}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> 编辑</a>
+                                            <a class="btn btn-danger btn-xs" onclick="fakerDelete('{$vo.id}')"><i class="fa fa-trash-o"></i> 假删除</a>
+                                            <a class="btn btn-danger btn-xs" onclick="deletes('{$vo.id}')"><i class="fa fa-trash-o"></i> 真删除</a>
+                                        </td>
+                                    </tr>
+                                    {/volist}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="am-u-lg-12 am-cf" style="text-align: right;">
+                                <div class="am-fl pagination-total am-margin-left">
+                                    <div class="am-vertical-align-middle">{$list->render()|raw}</div>
+                                </div>
+                                <div class="am-fr pagination-total am-margin-right">
+                                    <div class="am-vertical-align-middle">总记录：{$list->total()}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script>
+
+</script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<html lang="en" class="js cssanimations">
+<head>
+    {include file="common/header"/}
+</head>
+<body data-type="" style="" class="">
+<div class="am-g tpl-g" style="">
+    <!-- 头部 -->
+    {include file="common/nav"/}
+    <!-- 侧边导航栏 -->
+    {include file="common/menu"/}
+    {include file="common/menu_style" /}
+    <!-- 内容区域 start -->
+    <div class="tpl-content-wrapper " style="">
+        <!--右侧详细内容区域，灰框之内,from 妹子-->
+        <div class="row-content am-cf" style="">
+            <!--2列式简单布局,from bootstap-->
+            <div class="row" style="">
+                <!--12列布局,from 妹子-->
+                <div class="am-u-sm-12 am-u-md-12 am-u-lg-12" style="">
+                    <!--widget自定义右侧盒子 from 自定义 am-cf 清除全部浮动  from 妹子-->
+                    <div class="widget am-cf" style="">
+                        <form action=""
+                              method="post" class="am-form tpl-form-line-form" style="">
+                            <!--右侧正文 from 自定义 -->
+                            <div class="widget-body" style="">
+                                <!--右侧正文 规定所有边距为0 from bootstap -->
+                                <fieldset style="">
+                                    <!--小标题 from 自定义-->
+                                    <div class="widget-head am-cf">
+                                        <div class="widget-title am-fl">操作</div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label class="am-u-sm-3 am-u-lg-2 am-form-label"><b class="text-danger">*</b>加密账号
+                                        </label>
+                                        <div class="am-u-sm-9 am-u-end">
+                                            <input type="hidden" name="id" value="{$info.id}">
+                                            <div class="input-group ">
+                                                <input type="text" name="encrypt_id" value="{$info.encrypt_id}" id="encrypt_id" class="form-control">
+                                                <span class="input-group-btn">
+				                                    <button class="btn btn-default" onclick="checkRandomNumber('encrypt_id')" type="button" >生成新的</button>
+                                                    <button class="btn btn-info"  onclick="copyBtn('encrypt_id')"  type="button" >复制</button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label class="am-u-sm-3 am-u-lg-2 am-form-label"><b class="text-danger">*</b>加密秘钥
+                                        </label>
+                                        <div class="am-u-sm-9 am-u-end">
+                                            <div class="input-group ">
+                                                <input type="text" name="encrypt_secret" value="{$info.encrypt_secret}"  id="encrypt_secret" class="form-control">
+                                                <span class="input-group-btn">
+				                                    <button class="btn btn-default" onclick="checkRandomNumber('encrypt_secret')" type="button" >生成新的</button>
+                                                    <button class="btn btn-info"  onclick="copyBtn('encrypt_secret')"  type="button" >复制</button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label class="am-u-sm-3 am-u-lg-2 am-form-label"><b class="text-danger">*</b>加密md5
+                                        </label>
+                                        <div class="am-u-sm-9 am-u-end">
+                                            <div class="input-group ">
+                                                <input type="text" name="encrypt_md5" value="{$info.encrypt_md5}" id="encrypt_md5" class="form-control">
+                                                <span class="input-group-btn">
+				                                    <button class="btn btn-default" onclick="checkRandomNumber('encrypt_md5')" type="button" >生成新的</button>
+                                                    <button class="btn btn-info"  onclick="copyBtn('encrypt_md5')"  type="button" >复制</button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label class="am-u-sm-3 am-u-lg-2 am-form-label"><b class="text-danger">*</b>头部header加密
+                                        </label>
+                                        <div class="am-u-sm-9 am-u-end">
+                                            <div class="input-group ">
+                                                <input type="text" name="encrypt_header_md5" id="encrypt_header_md5" value="{$info.encrypt_header_md5}" class="form-control">
+                                                <span class="input-group-btn">
+				                                    <button class="btn btn-default" onclick="checkRandomNumber('encrypt_header_md5')" type="button" >生成新的</button>
+                                                    <button class="btn btn-info"  onclick="copyBtn('encrypt_header_md5')"  type="button" >复制</button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <div class="am-u-sm-9 am-u-sm-push-3 am-margin-top-lg">
+                                            <button type="submit" class="j-submit zx-addBut" value="提交">
+                                                提交
+                                            </button>
+                                            <a href="{:url('index')}"
+                                               id="a-back-index">
+                                                <button class="btn" type="button">返回</button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/static/admin/clipboard/clipboard.min.js"></script>
+<script>
+    function  checkRandomNumber(id,len = 16) {
+        var obj = $("#"+id);
+        var str = randomString(len);
+        $(obj).val(str);
+    }
+    function randomString(len = 32) {
+        var chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';/****默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/
+        var maxPos = chars.length;
+        var pwd = '';
+        for (var i = 0; i < len; i++) {
+            pwd += chars.charAt(Math.floor(Math.random() * maxPos));
+        }
+        return pwd;
+    }
+
+    function copyBtn(id) {
+        var obj = $("#"+id);
+        var str = $(obj).val();
+        layer.msg('复制成功');
+        new ClipboardJS('.btn',{text:function(trigger) { return str;} });
+    }
+</script>
+</body>
+</html>

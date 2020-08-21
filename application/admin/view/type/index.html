@@ -1,0 +1,106 @@
+<html lang="en" class="js cssanimations">
+<head>
+
+    {include file="common/header"/}
+</head>
+
+<body data-type="" style="">
+<div class="am-g tpl-g">
+    <!-- 头部 -->
+    {include file="common/nav"/}
+    <!-- 侧边导航栏 -->
+    {include file="common/menu"/}
+    {include file="common/menu_style" /}
+    <!-- 内容区域 start -->
+    <div class="tpl-content-wrapper">
+        <div class="row-content am-cf">
+            <div class="row">
+                <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                    <div class="widget am-cf">
+                        <div class="widget-head am-cf">
+                            <div class="widget-title am-cf">用户列表</div>
+                        </div>
+                        <div class="widget-body am-fr">
+                            <!-- 工具栏 -->
+                            <div class="page_toolbar  ">
+                                <form action="" method="get" class="form-horizontal" role="form" id="formSearch">
+                                    <div class="am-u-sm-12 ">
+                                        <span class="zx-form-span">
+										类型：
+									    </span>
+                                        <div class="am-form-group tpl-form-border-form zx-form-input zx-display zx-group">
+                                            <div class="am-form-group tpl-form-border-form zx-form-input zx-display zx-group">
+                                                <select name="type" data-am-selected="{ btnSize: 'sm',placeholder:'请选择状态', maxHeight: 400}" style="display: none;">
+                                                    <option value="0" {$where.type == 0? 'selected=""':''}>顶级分类</option>
+                                                    {volist name="$pidList" id="vo"}
+                                                    <option value="{$vo.id}" {$where.type == $vo.id? 'selected=""':''}>{$vo.name}</option>
+                                                    {/volist}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <span class="zx-form-span">
+										 <!-- 查询按钮样式 -->
+                                        <div class="zx-but-check">
+                                            <button type="submit">
+                                                <i class="fa fa-search"></i> 查询
+                                            </button>
+                                        </div>
+									</span>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="am-u-sm-12 am-fl am-margin-bottom-xs">
+                                <div class="am-btn-group am-btn-group-xs ">
+                                    <a class="zx-addBut" href="{:url('add')}">
+                                        <i class="fa fa-plus"></i> 添加分类
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="am-scrollable-horizontal am-u-sm-12">
+                                <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black am-text-nowrap ">
+                                    <thead class="navbar-inner">
+                                    <tr>
+                                        <th>id</th>
+                                        <th>类型名称</th>
+                                        <th>排序</th>
+                                        <th>创建时间</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {volist name="$list" id="vo"}
+                                    <tr>
+                                        <td>{$vo.id}</td>
+                                        <td>
+                                            {if condition="$vo.level == 0"}
+                                            {$vo.name}
+                                            {else/}
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├─{$vo.name}
+                                            {/if}
+                                        </td>
+                                        <td><input type="text " onblur="commonSort(this,'{$vo.id}')" value="{$vo.sort}"></td>
+                                        <td>{$vo.create_time}</td>
+                                        <td>
+                                            <a href="{:url('edit',['id'=> $vo.id])}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> 编辑</a>
+                                            {if condition="$vo.level != 0"}
+                                            <a class="btn btn-danger btn-xs" onclick="deletes('{$vo.id}')"><i class="fa fa-trash-o"></i> 删除</a>
+                                            {/if}
+                                        </td>
+                                    </tr>
+                                    {/volist}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script>
+
+</script>
+</body>
+</html>
